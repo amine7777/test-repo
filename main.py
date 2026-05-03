@@ -49,3 +49,7 @@ async def run_tests():
         resp = parse_response(raw)
         results.append({"input": case, "output": resp.dict()})
     return {"executed": len(test_cases), "results": results}
+
+@app.get("/healthy")
+async def healthy():
+    return {"status": "ok"}
