@@ -1,16 +1,14 @@
 # Project Genesis
 
-This is the always-open issue that holds project direction.
+This repository contains a production-quality FastAPI AI text analysis API.
 
-## What this repo is
-A minimal FastAPI project for AI-powered text analysis.
+## Features
+- POST `/analyze`: AI-powered text analysis (summary, sentiment, intent).
+- GET `/test`: Built-in test suite runner.
+- Mock LLM mode for local development.
 
-## How to work with the Maintainer
-- Open an issue and label it `queen-take`.
-- The Queen responds with a PR or flips to `manual-action`.
-
-## Active priorities
-- Maintain FastAPI text analysis API.
-- Ensure robust LLM parsing and testing.
-
-_Maintained by Mawio Maintainer._
+## Quick Start
+```bash
+pip install fastapi uvicorn
+uvicorn main:app --reload
+```
