@@ -3,7 +3,15 @@ from pydantic import BaseModel, ValidationError
 import json
 import os
 
+from app.routes.factorial import router as factorial_router
+from app.routes.gcd import router as gcd_router
+from app.routes.reverse import router as reverse_router
+
 app = FastAPI()
+
+app.include_router(factorial_router)
+app.include_router(gcd_router)
+app.include_router(reverse_router)
 
 USE_FAKE_LLM = os.getenv("USE_FAKE_LLM", "true").lower() == "true"
 
