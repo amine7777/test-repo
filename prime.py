@@ -12,29 +12,20 @@ def is_prime(n):
 
 
 if __name__ == "__main__":
-    test_cases = [
-        (-1, False),
-        (0, False),
-        (1, False),
-        (2, True),
-        (3, True),
-        (4, False),
-        (5, True),
-        (9, False),
-        (13, True),
-        (97, True),
-        (100, False),
-    ]
-
-    all_passed = True
-    for number, expected in test_cases:
-        result = is_prime(number)
-        status = "PASS" if result == expected else "FAIL"
-        if status == "FAIL":
-            all_passed = False
-        print(f"{status}: is_prime({number}) = {result} (expected {expected})")
-
-    if all_passed:
-        print("\nAll tests passed.")
-    else:
-        print("\nSome tests failed.")
+    assert is_prime(-1) == False
+    assert is_prime(0) == False
+    assert is_prime(1) == False
+    assert is_prime(2) == True
+    assert is_prime(3) == True
+    assert is_prime(4) == False
+    assert is_prime(5) == True
+    assert is_prime(9) == False
+    assert is_prime(11) == True
+    assert is_prime(13) == True
+    assert is_prime(15) == False
+    assert is_prime(17) == True
+    assert is_prime(19) == True
+    assert is_prime(25) == False
+    assert is_prime(97) == True
+    assert is_prime(100) == False
+    print("All tests passed.")
