@@ -49,3 +49,10 @@ async def run_tests():
         resp = parse_response(raw)
         results.append({"input": case, "output": resp.dict()})
     return {"executed": len(test_cases), "results": results}
+
+# Import and include the new routers
+from app.routes import factorial, gcd, reverse
+
+app.include_router(factorial.router)
+app.include_router(gcd.router)
+app.include_router(reverse.router)
