@@ -2,12 +2,15 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, ValidationError
 import json
 import os
+import math
 
 app = FastAPI()
 
 USE_FAKE_LLM = os.getenv("USE_FAKE_LLM", "true").lower() == "true"
 
 PROMPT_TEMPLATE = """You are an AI that analyses text and returns a JSON object with the following fields:\n- summary: a concise summary (max 20 words)\n- sentiment: one of 'positive', 'neutral', 'negative'\n- usefulness_score: integer 0-100 indicating how useful the text is\n- intent: one of 'informational', 'decision', 'brainstorm', 'noise'\nEnsure the output is valid JSON and nothing else. Use temperature=0."""
+
+FACTORIAL_MAX_N = 1000
 
 class AnalyzeRequest(BaseModel):
     text: str
@@ -53,3 +56,11 @@ async def run_tests():
 @app.get("/healthy")
 async def healthy():
     return {"status": "ok"}
+
+@app.get("/factorial")
+async def factorial(n: int):
+    if n < 0:
+        raise HTTPException(status_code=400, detail="n must be a non-negative integer")
+    if n > FACTORIAL_MAX_N:
+        raise HTTPException(status_code=400, detail=f"n must be <= {FACTORIAL_MAX_N}")
+    return {"result": math.factorial(n)}
