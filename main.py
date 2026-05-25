@@ -1,16 +1,13 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel, ValidationError
 import json
 import os
-import math
 
 app = FastAPI()
 
 USE_FAKE_LLM = os.getenv("USE_FAKE_LLM", "true").lower() == "true"
 
 PROMPT_TEMPLATE = """You are an AI that analyses text and returns a JSON object with the following fields:\n- summary: a concise summary (max 20 words)\n- sentiment: one of 'positive', 'neutral', 'negative'\n- usefulness_score: integer 0-100 indicating how useful the text is\n- intent: one of 'informational', 'decision', 'brainstorm', 'noise'\nEnsure the output is valid JSON and nothing else. Use temperature=0."""
-
-FACTORIAL_MAX_N = 1000
 
 class AnalyzeRequest(BaseModel):
     text: str
@@ -57,10 +54,16 @@ async def run_tests():
 async def healthy():
     return {"status": "ok"}
 
+def _factorial(n: int) -> int:
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
+
 @app.get("/factorial")
-async def factorial(n: int):
+async def factorial_endpoint(n: int = Query(..., description="Non‑negative integer (max 20)")):
     if n < 0:
-        raise HTTPException(status_code=400, detail="n must be a non-negative integer")
-    if n > FACTORIAL_MAX_N:
-        raise HTTPException(status_code=400, detail=f"n must be <= {FACTORIAL_MAX_N}")
-    return {"result": math.factorial(n)}
+        raise HTTPException(status_code=400, detail="n must be non‑negative")
+    if n > 20:
+        raise HTTPException(status_code=400, detail="n is too large; must be <= 20")
+    return {"result": _factorial(n)}
