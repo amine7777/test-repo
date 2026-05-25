@@ -3,7 +3,7 @@ from fastapi import FastAPI
 app = FastAPI()
 
 @app.get("/hello")
-def hello() -> str:
+def read_hello() -> str:
     return "HeLLLOOO ALOHA"
 
 if __name__ == "__main__":
