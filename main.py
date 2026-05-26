@@ -53,3 +53,5 @@ async def run_tests():
 @app.get("/healthy")
 async def healthy():
     return {"status": "ok"}
+
+# Run the application with: uvicorn main:app --reload
