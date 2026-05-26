@@ -18,9 +18,9 @@ def test_test_endpoint():
     assert response.status_code == 200
     data = response.json()
     assert data["executed"] == 4
-    assert isinstance(data["results"], list)
     assert len(data["results"]) == 4
-    for item in data["results"]:
-        assert "input" in item and "output" in item
-        out = item["output"]
+    for result in data["results"]:
+        assert "input" in result
+        assert "output" in result
+        out = result["output"]
         assert set(out.keys()) == {"summary", "sentiment", "usefulness_score", "intent"}
