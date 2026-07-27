@@ -1,12 +1,10 @@
 def fib(n: int) -> int:
     """
-    Calculate the nth Fibonacci number using an iterative approach.
-    
+    Return the nth Fibonacci number (0-indexed). Raises ValueError if n < 0.
     Args:
-        n (int): The position in the Fibonacci sequence (0-indexed).
-        
+        n (int): Index of Fibonacci number (non-negative).
     Returns:
-        int: The nth Fibonacci number.
+        int: Fibonacci number at position n.
     """
     if n < 0:
         raise ValueError("n must be a non-negative integer")

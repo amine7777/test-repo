@@ -1,4 +1,15 @@
 def is_prime(n):
+    """
+    Return True if n is a prime number, else False.
+    Args:
+        n (int): The integer to test.
+    Returns:
+        bool: True if n is prime, False otherwise.
+    Edge cases:
+        - n < 2 returns False.
+        - n == 2 returns True.
+        - Even numbers > 2 return False.
+    """
     if n < 2:
         return False
     if n == 2:
